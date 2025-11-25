@@ -1,0 +1,48 @@
+# ========== KYC 欄位 ==========
+kyc_fields:
+  - name
+  - national_id_last4
+  - age
+  - income
+  - job_type
+  - region
+
+# ========== AI Feature Engineering ==========
+feature_engineering:
+  simulate_credit_score: true
+  simulate_delay: true
+  simulate_usage: true
+
+# ========== AI Decision Thresholds（PD門檻）==========
+decision_thresholds:
+  reject: 0.40       # PD > 40% → 拒絕
+  review: 0.25       # PD > 25% → 補件審核
+  approve: 0.00      # 其餘視為核准
+
+# ========== 核准額度計算 ==========
+limit_rule:
+  base_amount: 30000       # 基礎額度
+  variable_amount: 50000   # 與 PD 反向的變動額度
+
+# ========== AI 模型設定 ==========
+model:
+  path: "models/default_model.pkl"
+  use_mock_model_if_missing: true
+
+# ========== Dashboard 設定 ==========
+dashboard:
+  mock_users: 20
+  pd_range:
+    min: 0.0
+    max: 0.5
+
+# ========== Loan Product：隨借隨還設定 ==========
+loan_product:
+  apr: 0.08                # 年利率 8%
+  interest_rounding: 2     # 小數第幾位四捨五入
+  allow_revolving: true    # 是否允許循環額度
+
+# ========== Database 設定（SQLite）==========
+database:
+  enable: true
+  path: "db/loan.db"
